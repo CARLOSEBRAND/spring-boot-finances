@@ -32,7 +32,7 @@ public class UserServiceTest {
 
         //cenário
         Mockito.doNothing().when(service).validateEmail(Mockito.anyString());
-        User user = new User(1, "Carlos", "carlosebrand@gmail.com", "123");
+        User user = new User(1l, "Carlos", "carlosebrand@gmail.com", "123");
         Mockito.when(repository.save(Mockito.any(User.class))).thenReturn(user);
 
         //acão

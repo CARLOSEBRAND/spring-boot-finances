@@ -1,6 +1,7 @@
 package br.pro.brand.finance.models.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
@@ -30,7 +31,7 @@ public class Entry implements Serializable {
     private String description;
     private Integer year;
     private Integer month;
-    private Double amount;
+    private BigDecimal amount;
 
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private Date createdAt;
@@ -50,7 +51,7 @@ public class Entry implements Serializable {
     public Entry() {
     }
 
-    public Entry(Long id, String description, Integer year, Integer month, Double amount, Date createdAt, User user, EntryStatus status, EntryCategory category) {
+    public Entry(Long id, String description, Integer year, Integer month, BigDecimal amount, Date createdAt, User user, EntryStatus status, EntryCategory category) {
         super();
         this.id = id;
         this.description = description;
@@ -95,11 +96,11 @@ public class Entry implements Serializable {
         this.month = month;
     }
 
-    public Double getAmount() {
+    public BigDecimal getAmount() {
         return this.amount;
     }
 
-    public void setAmount(Double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

@@ -1,7 +1,9 @@
 package br.pro.brand.finance.services;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.pro.brand.finance.exceptions.BussinessRuleException;
 import br.pro.brand.finance.models.entity.Entry;
+import br.pro.brand.finance.models.enums.EntryCategory;
 import br.pro.brand.finance.models.enums.EntryStatus;
 import br.pro.brand.finance.models.repository.EntryRepository;
 
@@ -89,7 +92,7 @@ public class EntryServiceImp implements EntryService {
             throw new BussinessRuleException("Enter with a valid user");
         }
 
-        if (entry.getAmount() == null || !(entry.getAmount() instanceof Double)) {
+        if (entry.getAmount() == null || !(entry.getAmount() instanceof BigDecimal)) {
             throw new BussinessRuleException("Enter with a valid amount");
         }
 
@@ -97,5 +100,29 @@ public class EntryServiceImp implements EntryService {
             throw new BussinessRuleException("Enter with a valid category");
         }
     }
-    
+
+
+    @Override
+    public Optional<Entry> findByEntryId(Long id) {
+        return repository.findById(id);
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public BigDecimal getBalanceForUser(Long id) {
+        BigDecimal incomes = repository.getBalanceForCategoryAndUser(id, EntryCategory.INCOME);
+        BigDecimal expenses = repository.getBalanceForCategoryAndUser(id, EntryCategory.EXPENSE);
+
+        if (incomes == null) {
+            incomes = BigDecimal.ZERO;
+        }
+
+        if (expenses == null) {
+            expenses = BigDecimal.ZERO;
+        }
+
+        return incomes.subtract(expenses);
+    }
+
 }

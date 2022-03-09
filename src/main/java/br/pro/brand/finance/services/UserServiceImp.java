@@ -46,5 +46,10 @@ public class UserServiceImp implements UserService {
         }
         
     }
+
+    @Override
+    public Optional<User> findByUserId(Long id) {
+        return repository.findById(id);
+    }
     
 }
