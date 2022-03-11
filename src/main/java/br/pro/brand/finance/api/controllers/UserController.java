@@ -39,7 +39,7 @@ public class UserController {
 		
         try {
             user = service.salveUser(user);
-            return new ResponseEntity<User>(user, HttpStatus.OK);
+            return new ResponseEntity<User>(user, HttpStatus.CREATED);
             
         } catch (BussinessRuleException e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);

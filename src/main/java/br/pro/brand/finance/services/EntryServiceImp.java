@@ -77,27 +77,27 @@ public class EntryServiceImp implements EntryService {
     public void validate(Entry entry) {
         
         if (entry.getDescription() == null || entry.getDescription().trim().equals("")) {
-            throw new BussinessRuleException("Enter with a valid description");
+            throw new BussinessRuleException("Enter with a valid description.");
         }
 
         if (entry.getMonth() == null || entry.getMonth() < 1 || entry.getMonth() > 12) {
-            throw new BussinessRuleException("Enter with a valid month");
+            throw new BussinessRuleException("Enter with a valid month.");
         }
 
         if (entry.getYear() == null || entry.getYear().toString().length() != 4) {
-            throw new BussinessRuleException("Enter with a valid year");
+            throw new BussinessRuleException("Enter with a valid year.");
         }
 
         if (entry.getUser() == null || entry.getUser().getId() == null) {
-            throw new BussinessRuleException("Enter with a valid user");
+            throw new BussinessRuleException("Enter with a valid user.");
         }
 
-        if (entry.getAmount() == null || !(entry.getAmount() instanceof BigDecimal)) {
-            throw new BussinessRuleException("Enter with a valid amount");
+        if (entry.getAmount() == null || entry.getAmount().compareTo(BigDecimal.ZERO) < 1) {
+            throw new BussinessRuleException("Enter with a valid amount.");
         }
 
         if (entry.getCategory() == null) {
-            throw new BussinessRuleException("Enter with a valid category");
+            throw new BussinessRuleException("Enter with a valid category.");
         }
     }
 
